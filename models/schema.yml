@@ -13,7 +13,7 @@ sources:
             description: the date of the sale
           - name: orders_id
             description: Foreign Key - the order id which contains 1 or more products
-          - name: products_id
+          - name: pdt_id
             description: Foreign Key - one or more of a specific product sold per order_id
           - name: revenue
             description: the turnover per product
@@ -21,7 +21,7 @@ sources:
             description: the quantity of product sold per order_id
         tests:
           - unique:
-            column_name: "(orders_id || '-' || pdt_id)"
+              column_name: "(orders_id || '-' || pdt_id)"
       - name: product
         identifier: raw_gz_product
         description: greenweez product info - each row represents one (and only one) product and the purchase price for item
