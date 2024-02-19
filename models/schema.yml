@@ -12,19 +12,25 @@ sources:
           - name: date_date
             description: the date of the sale
           - name: orders_id
-            description: the order id which contains 1 or more products
+            description: Foreign Key - the order id which contains 1 or more products
           - name: products_id
-            description: one or more of a specific product sold per order_id
+            description: Foreign Key - one or more of a specific product sold per order_id
           - name: revenue
             description: the turnover per product
           - name: quantity
             description: the quantity of product sold per order_id
+        tests:
+          - unique:
+            column_name: "(orders_id || '-' || pdt_id)"
       - name: product
         identifier: raw_gz_product
         description: greenweez product info - each row represents one (and only one) product and the purchase price for item
         columns:
           - name: products_id
-            description: unique identifier for specific greenweez product
+            description: Primary Key - unique identifier for specific greenweez product
+            tests:
+              - unique
+              - not_null
           - name: purchase_price
             description: greenweez purchase price of specified product
       - name: ship
@@ -32,7 +38,10 @@ sources:
         description: greenweez shipping info - each row represents shipping cost/revenue for one order
         columns:
           - name: orders_id
-            description: unique identifier of order for which row describes shipping cost/revenue
+            description: Primary Key - unique identifier of order for which row describes shipping cost/revenue
+            tests:
+              - unique
+              - not_null            
           - name: shipping_fee
             description: how much customer is charged for greenweez to ship order
           - name: log_cost
