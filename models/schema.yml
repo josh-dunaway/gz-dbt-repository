@@ -27,8 +27,7 @@ sources:
           warn_after:
             count: 90
             period: day
-        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
-        
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"        
       - name: product
         identifier: raw_gz_product
         description: greenweez product info - each row represents one (and only one) product and the purchase price for item
