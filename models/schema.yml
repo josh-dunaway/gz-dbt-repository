@@ -7,7 +7,50 @@ sources:
     tables:
       - name: sales
         identifier: raw_gz_sales
+        description: greenweez sales - each row represents specific product(s) sold for each order_id
+        columns:
+          - name: date_date
+            description: the date of the sale
+          - name: orders_id
+            description: Foreign Key - the order id which contains 1 or more products
+          - name: pdt_id
+            description: Foreign Key - one or more of a specific product sold per order_id
+          - name: revenue
+            description: the turnover per product
+          - name: quantity
+            description: the quantity of product sold per order_id
+        tests:
+          - unique:
+              column_name: "(orders_id || '-' || pdt_id)"
+        # note to self - run command "source freshness" to check all freshness tests
+        freshness: 
+          warn_after:
+            count: 90
+            period: day
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"        
       - name: product
         identifier: raw_gz_product
+        description: greenweez product info - each row represents one (and only one) product and the purchase price for item
+        columns:
+          - name: products_id
+            description: Primary Key - unique identifier for specific greenweez product
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            description: greenweez purchase price of specified product
       - name: ship
         identifier: raw_gz_ship
+        description: greenweez shipping info - each row represents shipping cost/revenue for one order
+        columns:
+          - name: orders_id
+            description: Primary Key - unique identifier of order for which row describes shipping cost/revenue
+            tests:
+              - unique
+              - not_null            
+          - name: shipping_fee
+            description: how much customer is charged for greenweez to ship order
+          - name: log_cost
+            description: how much greenweez pays for order logging
+          - name: ship_cost
+            description: how much greenweez pays for order shipping
