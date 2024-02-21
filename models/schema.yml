@@ -54,3 +54,11 @@ sources:
             description: how much greenweez pays for order logging
           - name: ship_cost
             description: how much greenweez pays for order shipping
+      - name: adwords
+        identifier: raw_gz_adwords
+      - name: bing
+        identifier: raw_gz_bing
+      - name: criteo
+        identifier: raw_gz_criteo
+      - name: facebook
+        identifier: raw_gz_criteo            
