@@ -4,6 +4,10 @@ models:
   - name: stg_raw__product
   - name: stg_raw__sales
   - name: stg_raw__ship
+  - name: stg_raw__adwords
+  - name: stg_raw__bing
+  - name: stg_raw__criteo
+  - name: stg_raw__facebook
   - name: int_sales_margin
     description: margin calcultation per order line / product sale
     columns:
@@ -69,6 +73,15 @@ models:
             - shipping_fee
             - log_cost
             - ship_cost
+  - name: int_campaigns
+    description: all marketing campaign sources (adwords, bing, criteo, and facebook) in one table
+    tests:
+      - unique:
+          column_name: "(campaign_key || '-' || date_date)"
+      - not_null:
+          column_name:
+            - paid_source
+            - campaign_name
   - name: finance_days
     description: finance calculation per days
     tests:
@@ -88,3 +101,17 @@ models:
             - log_cost
             - ship_cost
             - quantity
+  - name: int_campaigns_day
+    description: campaign stats by day
+  - name: finance_campaigns_day
+    description: global kpi
+    columns:
+      - name: ads_margin
+        description: operational_margin - ads_cost
+      - name: average_basket
+        description: average basket cost for each day 
+    tests:
+      - not_null:
+          column_name:
+            - ads_margin
+            - average_basket            
