@@ -101,3 +101,17 @@ models:
             - log_cost
             - ship_cost
             - quantity
+  - name: int_campaigns_day
+    description: campaign stats by day
+  - name: finance_campaigns_day
+    description: global kpi
+    columns:
+      - name: ads_margin
+        description: operational_margin - ads_cost
+      - name: average_basket
+        description: average basket cost for each day 
+    tests:
+      - not_null:
+          column_name:
+            - ads_margin
+            - average_basket            
